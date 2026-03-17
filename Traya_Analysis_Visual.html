@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Man Matters vs Traya — Creative Intelligence Report</title>
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --orange: #E86B2A;
+    --light-orange: #FFF0E8;
+    --light-blue: #F0F4FB;
+    --green: #1A6B3A;
+    --light-green: #F0F8F0;
+    --red-bg: #FFF5F5;
+    --gray: #F4F6FA;
+    --border: #D0D5E0;
+    --dark: #222222;
+    --mid: #555566;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #EAEFF7;
+    color: var(--dark);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1B3A6B 0%, #0D2247 100%);
+    color: white;
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(232,107,42,0.15);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero p {
+    color: #AABBD6;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 14px 22px;
+    text-align: center;
+  }
+  .stat-box .num { font-size: 26px; font-weight: 800; color: var(--orange); }
+  .stat-box .lbl { font-size: 11px; color: #AABBD6; margin-top: 2px; }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    background: var(--navy);
+    display: flex;
+    gap: 0;
+    padding: 0 40px;
+    overflow-x: auto;
+  }
+  .nav-tab {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #AABBD6;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-tab:hover, .nav-tab.active {
+    color: white;
+    border-bottom-color: var(--orange);
+  }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    margin-top: 40px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-num {
+    background: var(--orange);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .section-header p {
+    font-size: 13px;
+    color: var(--mid);
+    margin-top: 2px;
+  }
+
+  /* ── IMPRESSION BARS ── */
+  .impression-bar-wrap { position: relative; }
+  .impression-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .impression-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--orange), #F5A36B);
+    transition: width 1s ease;
+  }
+
+  /* ── AD CARDS ── */
+  .ad-cards { display: flex; flex-direction: column; gap: 16px; }
+  .ad-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: flex;
+    transition: box-shadow 0.2s;
+  }
+  .ad-card:hover { box-shadow: 0 4px 20px rgba(27,58,107,0.12); }
+  .ad-card-rank {
+    background: var(--navy);
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .ad-card-rank .rank-label {
+    position: absolute;
+    bottom: 10px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+  .ad-card-body { padding: 16px 20px; flex: 1; }
+  .ad-card-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag-orange { background: var(--light-orange); color: var(--orange); }
+  .tag-navy   { background: var(--light-blue);   color: var(--navy);   }
+  .tag-green  { background: var(--light-green);  color: var(--green);  }
+  .tag-gray   { background: var(--gray);          color: var(--mid);    }
+  .ad-card-copy {
+    font-size: 13.5px;
+    color: var(--dark);
+    line-height: 1.6;
+    border-left: 3px solid var(--orange);
+    padding-left: 12px;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .ad-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .imp-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .imp-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .imp-highest .imp-dot { background: #E53935; }
+  .imp-high    .imp-dot { background: var(--orange); }
+  .imp-medium  .imp-dot { background: #F5A623; }
+  .imp-highest { color: #E53935; }
+  .imp-high    { color: var(--orange); }
+  .imp-medium  { color: #F5A623; }
+
+  .view-ad-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 14px;
+    background: var(--navy);
+    color: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .view-ad-btn:hover { background: var(--orange); }
+
+  /* ── IMPRESSION OVERVIEW CHART ── */
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-chart { display: flex; flex-direction: column; gap: 14px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { font-size: 12px; color: var(--mid); width: 180px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 28px; background: var(--gray); border-radius: 6px; overflow: hidden; position: relative; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+  }
+
+  /* ── INFLUENCER TABLE ── */
+  .inf-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .inf-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.3px;
+  }
+  .inf-table td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .inf-table tr:last-child td { border-bottom: none; }
+  .inf-table tr:nth-child(even) td { background: var(--gray); }
+  .inf-name { font-weight: 700; color: var(--navy); }
+
+  /* ── OBSERVATION BOX ── */
+  .obs-box {
+    background: #FFF8F4;
+    border: 1px solid #F5D5C0;
+    border-left: 5px solid var(--orange);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+  .obs-box h3 { font-size: 14px; font-weight: 800; color: var(--orange); margin-bottom: 12px; }
+  .obs-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .obs-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+  }
+  .obs-list li::before {
+    content: '→';
+    color: var(--orange);
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── COUNTER STRATEGY CARDS ── */
+  .counter-cards { display: flex; flex-direction: column; gap: 24px; }
+  .counter-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .counter-card-header {
+    background: var(--navy);
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .counter-num {
+    background: var(--orange);
+    color: white;
+    font-size: 18px;
+    font-weight: 900;
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .counter-card-header h3 { font-size: 15px; font-weight: 700; }
+  .counter-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .angle-col, .counter-col { padding: 16px 20px; }
+  .angle-col { background: var(--red-bg); border-right: 1px solid var(--border); }
+  .counter-col { background: var(--light-green); }
+  .col-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .angle-col .col-label { color: #C62828; }
+  .counter-col .col-label { color: var(--green); }
+  .col-text { font-size: 13px; line-height: 1.6; }
+  .actions-row {
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .actions-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--mid);
+    margin-right: 6px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .action-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  .action-chip .chip-num {
+    background: var(--orange);
+    color: white;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── KIT COMPLEXITY ── */
+  .kit-hero {
+    background: linear-gradient(135deg, var(--navy), #0D2247);
+    color: white;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kit-hero::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(232,107,42,0.15);
+  }
+  .kit-hero .insight-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .kit-hero p { font-size: 14px; line-height: 1.7; color: #CCDDEF; max-width: 700px; }
+  .kit-tagline {
+    background: var(--orange);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 800;
+    font-style: italic;
+    margin-bottom: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .vs-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin-bottom: 28px;
+    align-items: stretch;
+  }
+  .vs-col {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+  .vs-col.traya { border-color: #F5D5C0; }
+  .vs-col.mm    { border-color: #B2DFDB; }
+  .vs-col-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid;
+  }
+  .vs-col.traya .vs-col-label { color: #C62828; border-color: #E57373; }
+  .vs-col.mm    .vs-col-label { color: var(--green); border-color: #81C784; }
+  .vs-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--mid);
+  }
+  .vs-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .vs-item::before { content: '•'; font-size: 18px; flex-shrink: 0; }
+  .vs-col.traya .vs-item::before { color: #E57373; }
+  .vs-col.mm    .vs-item::before { color: #81C784; }
+
+  .format-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .format-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .format-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 12px; right: 14px;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gray);
+    line-height: 1;
+  }
+  .format-card h4 { font-size: 13px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .format-card p { font-size: 12.5px; color: var(--mid); line-height: 1.6; }
+
+  /* ── PRIORITY TABLE ── */
+  .priority-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .priority-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+  }
+  .priority-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .priority-table tr:last-child td { border-bottom: none; }
+  .priority-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .p0 { background: #FFE0CC; color: #C04800; }
+  .p1 { background: #FFF0E8; color: var(--orange); }
+  .p2 { background: var(--light-blue); color: var(--navy); }
+  .p3 { background: var(--gray); color: var(--mid); }
+  .p4 { background: #F5F5F5; color: #999; }
+  .priority-table tr.p0-row td { background: #FFF5EE; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--navy);
+    color: #AABBD6;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 48px;
+  }
+  .footer strong { color: white; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .counter-body { grid-template-columns: 1fr; }
+    .format-cards { grid-template-columns: 1fr; }
+    .vs-comparison { grid-template-columns: 1fr; }
+    .vs-middle { display: none; }
+    .hero h1 { font-size: 22px; }
+    .bar-label { width: 120px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Competitive Intelligence · March 2026</div>
+  <h1>Man Matters <span>vs</span> Traya</h1>
+  <p>Creative Analysis · Counter-Strategy · Kit Complexity Playbook</p>
+  <div class="hero-stats">
+    <div class="stat-box"><div class="num">~390</div><div class="lbl">Active Traya Ads</div></div>
+    <div class="stat-box"><div class="num">5+</div><div class="lbl">Months — Top Creative Running</div></div>
+    <div class="stat-box"><div class="num">8+</div><div class="lbl">Influencers, Same Script</div></div>
+    <div class="stat-box"><div class="num">3</div><div class="lbl">Regional Languages Targeted</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <a class="nav-tab active" href="#section-a">A. Creative Analysis</a>
+  <a class="nav-tab" href="#section-b">B. Counter-Strategy</a>
+  <a class="nav-tab" href="#section-c">C. Kit Complexity</a>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════ SECTION A -->
+  <div id="section-a">
+    <div class="section-header">
+      <div class="section-num">A</div>
+      <div>
+        <h2>Traya — What They're Running on Meta</h2>
+        <p>Active ads · India · Sorted by total impressions</p>
+      </div>
+    </div>
+
+    <!-- IMPRESSION CHART -->
+    <div class="chart-card">
+      <div class="chart-title">
+        📊 Impression Signal by Creative Angle
+      </div>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">Stages / Fear (Oct '25)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:100%; background: linear-gradient(90deg,#C62828,#E57373);">HIGHEST — 5+ months running</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">93% Success — Telugu (Dec '25)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:95%; background: linear-gradient(90deg,#C62828,#E57373);">HIGHEST — South India anchor</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">93% Success — Tamil (Jan '26)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:78%; background: linear-gradient(90deg,#E86B2A,#F5A36B);">HIGH</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Treatment Plan / 10L+ (Feb '26)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:72%; background: linear-gradient(90deg,#E86B2A,#F5A36B);">HIGH — multi-version</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">MridulMadhok / Stages (Feb '26)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:65%; background: linear-gradient(90deg,#E86B2A,#F5A36B);">HIGH — 5 ad versions</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Multi-Cause / TOF (Mar '26)</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:40%; background: linear-gradient(90deg,#F5A623,#FAD07A);">MEDIUM — new, scaling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD CARDS -->
+    <div class="ad-cards">
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:#C62828;">
+          #1
+          <span class="rank-label">Highest</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 27 Oct 2025 &nbsp;·&nbsp; 5+ months</span>
+            <span class="tag tag-navy">🇬🇧 English</span>
+            <span class="tag tag-orange">🖼 Carousel</span>
+          </div>
+          <div class="ad-card-copy">
+            "Treat your hair fall before it's too late! In Stages 1 to 4 correct medications and treatments can help regrow your hair. But once you hit Stage 5 it is very difficult to treat your baldness."
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Fear + Urgency — irreversibility framework. Carousel format: Card 1 = before/after (Himanshu), Card 2 = personalised kit, Card 3 = App Store CTA. Used across MridulMadhok (5 versions), Saurav Thakur, RJ Naved.</div>
+              <div class="imp-indicator imp-highest"><span class="imp-dot"></span> HIGHEST impression signal — their evergreen anchor</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=3105687229605460" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:#C62828;">
+          #2
+          <span class="rank-label">Highest</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 27 Dec 2025 &nbsp;·&nbsp; 5+ months</span>
+            <span class="tag tag-navy">🇮🇳 Telugu</span>
+            <span class="tag tag-orange">🎬 Video</span>
+          </div>
+          <div class="ad-card-copy">
+            "జుట్టు ఉడిపొతుందా? చాల ways try చేశావా? / 93% మందికి Traya work అయింది" — ✅ Doctor-approved ✅ Clinical trials proven ✅ Minoxidil కంటే 3x more effective ✅ Money refund if no results
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Social proof + Regional language. Direct Minoxidil attack embedded in copy.</div>
+              <div class="imp-indicator imp-highest"><span class="imp-dot"></span> HIGHEST — South India's biggest impression volume</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=33038837749064427" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:var(--orange);">
+          #3
+          <span class="rank-label">High</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 26 Jan 2026 &nbsp;·&nbsp; 7 weeks</span>
+            <span class="tag tag-navy">🇮🇳 Tamil</span>
+            <span class="tag tag-orange">🎬 Video</span>
+          </div>
+          <div class="ad-card-copy">
+            "முடி உதிர்வா? நிறைய விஷயம் try பண்ணீங்கலா? / 93% பேருக்கும் Traya வேலை செய்துருக்கு" — Same framework as Telugu, deployed with Tamil regional creators.
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Same 93% script, adapted for Tamil market — Hyd/Chennai/Bengaluru push.</div>
+              <div class="imp-indicator imp-high"><span class="imp-dot"></span> HIGH — scaled quickly after Telugu success</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=1855313358432888" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:var(--orange);">
+          #4
+          <span class="rank-label">High</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 6 Feb 2026 &nbsp;·&nbsp; 6 weeks</span>
+            <span class="tag tag-navy">🇬🇧 English</span>
+            <span class="tag tag-orange">🎬 Video (multi-version)</span>
+          </div>
+          <div class="ad-card-copy">
+            "Traya's Treatment Plan has everything your hair needs. 10 Lakh+ have tried and tested — it's your turn now."
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Product convenience + herd mentality social proof. 2 ads share identical creative.</div>
+              <div class="imp-indicator imp-high"><span class="imp-dot"></span> HIGH — 2 ad versions running simultaneously</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=757743984059338" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:var(--orange);">
+          #5
+          <span class="rank-label">High</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 16 Feb 2026 &nbsp;·&nbsp; 4 weeks</span>
+            <span class="tag tag-navy">🇬🇧 English</span>
+            <span class="tag tag-orange">🎬 Video</span>
+          </div>
+          <div class="ad-card-copy">
+            "Treat your hair fall before it's too late" — deployed via MridulMadhok (12M+ YouTube). 5 ads use exact same creative and text.
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Fear framework via celebrity creator. Same script, mass reach play.</div>
+              <div class="imp-indicator imp-high"><span class="imp-dot"></span> HIGH — MridulMadhok's brand amplification</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=713562721840709" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-card">
+        <div class="ad-card-rank" style="background:#F5A623; color:white;">
+          #6
+          <span class="rank-label">Medium</span>
+        </div>
+        <div class="ad-card-body">
+          <div class="ad-card-meta">
+            <span class="tag tag-gray">📅 13 Mar 2026 &nbsp;·&nbsp; Active (new)</span>
+            <span class="tag tag-navy">🇬🇧 English</span>
+            <span class="tag tag-orange">🎬 Video</span>
+          </div>
+          <div class="ad-card-copy">
+            "We understand that hair fall can have multiple causes — poor nutrition, genetics, hectic lifestyle, disrupted sleep. That's why we don't rely on a single product. We offer the complete Traya Treatment Plan."
+          </div>
+          <div class="ad-card-footer">
+            <div>
+              <div style="font-size:12px; color:var(--mid); margin-bottom:4px;"><strong style="color:var(--dark);">Angle:</strong> Awareness-stage / TOF. Softer sell, broader targeting — people who haven't tried treatment yet.</div>
+              <div class="imp-indicator imp-medium"><span class="imp-dot"></span> MEDIUM — newest creative, scaling fast</div>
+            </div>
+            <a href="https://www.facebook.com/ads/library/?id=2531614373902061" target="_blank" class="view-ad-btn">View Ad ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end ad-cards -->
+
+    <!-- INFLUENCER TABLE -->
+    <div class="section-header" style="margin-top:36px;">
+      <div style="font-size:18px;">🎤</div>
+      <div><h2 style="font-size:17px;">Influencer Programme</h2></div>
+    </div>
+    <table class="inf-table">
+      <thead>
+        <tr>
+          <th>Influencer</th><th>Profile</th><th>Volume</th><th>Angle Used</th><th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="inf-name">MridulMadhok</span></td><td>Lifestyle / YouTube 12M+</td><td>5 ads, same creative</td><td>Stages framework</td><td>Their top paid creator</td></tr>
+        <tr><td><span class="inf-name">RJ Naved</span></td><td>Radio / Mass Market</td><td>1 ad (Mar 2026)</td><td>Stages framework</td><td>New push, celebrity budget</td></tr>
+        <tr><td><span class="inf-name">Saurav Thakur</span></td><td>Creator</td><td>1 ad (Feb 2026)</td><td>Stages framework</td><td>Mid-tier</td></tr>
+        <tr><td><span class="inf-name">Pavan / Guru / Dora Sai Teja</span></td><td>Telugu micro-influencers</td><td>Multiple</td><td>93% angle (Telugu)</td><td>South India push</td></tr>
+        <tr><td><span class="inf-name">naan_muthukumaran</span></td><td>Tamil creator</td><td>1 ad</td><td>93% angle (Tamil)</td><td>South India push</td></tr>
+      </tbody>
+    </table>
+
+    <!-- OBSERVATIONS -->
+    <div class="obs-box">
+      <h3>⚡ Key Observations</h3>
+      <ul class="obs-list">
+        <li><strong>100% video</strong> across all top-impression ads. Zero static creatives in top 15.</li>
+        <li><strong>Funnel:</strong> All ads route to form.traya.health quiz or App Store. Personalisation-first acquisition model.</li>
+        <li><strong>Direct Minoxidil attack</strong> embedded in Telugu + Tamil copy — explicit attack on Man Matters' core product.</li>
+        <li><strong>Regional language dominance:</strong> Telugu + Tamil creatives carry the highest impression volume and have been running longest.</li>
+        <li><strong>Script cloning:</strong> Same 4-line copy used across 8+ influencers — it's a volume play, not authenticity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ SECTION B -->
+  <div id="section-b">
+    <div class="section-header">
+      <div class="section-num">B</div>
+      <div>
+        <h2>Counter-Strategy — Point by Point</h2>
+        <p>How Man Matters should respond to each Traya creative angle</p>
+      </div>
+    </div>
+
+    <div class="counter-cards">
+
+      <!-- 01 -->
+      <div class="counter-card">
+        <div class="counter-card-header">
+          <div class="counter-num">01</div>
+          <div>
+            <h3>Hair Stages / Fear Framework</h3>
+            <div style="font-size:12px; opacity:0.7; margin-top:2px;">Their highest-impression creative angle</div>
+          </div>
+        </div>
+        <div class="counter-body">
+          <div class="angle-col">
+            <div class="col-label">🚨 Their Angle</div>
+            <div class="col-text">"Stage 5 = irreversible baldness. Act now or lose your hair forever." Urgency + fear framework that routes straight to purchase or quiz.</div>
+          </div>
+          <div class="counter-col">
+            <div class="col-label">✅ Our Counter</div>
+            <div class="col-text">Reframe: <strong>Stages don't matter if you can't follow through.</strong> "Starting is easy. Staying consistent is what actually grows your hair." Shift from fear → consistency + simplicity.</div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <span class="actions-label">Actions</span>
+          <span class="action-chip"><span class="chip-num">1</span>Build 1 anchor creative around the consistency message</span>
+          <span class="action-chip"><span class="chip-num">2</span>Target men who tried treatments but dropped off</span>
+          <span class="action-chip"><span class="chip-num">3</span>Tagline: "Hair growth that fits your life. Not the other way around."</span>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="counter-card">
+        <div class="counter-card-header">
+          <div class="counter-num">02</div>
+          <div>
+            <h3>Regional Language Domination</h3>
+            <div style="font-size:12px; opacity:0.7; margin-top:2px;">Telugu + Tamil — highest impression volume</div>
+          </div>
+        </div>
+        <div class="counter-body">
+          <div class="angle-col">
+            <div class="col-label">🚨 Their Angle</div>
+            <div class="col-text">Telugu + Tamil creatives running since Dec 2025 — now their highest-impression ads. Same "93% success" script localised for South India.</div>
+          </div>
+          <div class="counter-col">
+            <div class="col-label">✅ Our Counter</div>
+            <div class="col-text">South Indian men already have longer grooming routines. A 7-product medicated kit on top is the last thing they want. <strong>"Your hair routine. 2 minutes. That's it."</strong></div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <span class="actions-label">Actions</span>
+          <span class="action-chip"><span class="chip-num">1</span>Launch Telugu first — 2-minute routine video format</span>
+          <span class="action-chip"><span class="chip-num">2</span>Use micro-influencers (100k–500k) in Hyd / Chennai / Bengaluru</span>
+          <span class="action-chip"><span class="chip-num">3</span>Follow with Tamil using same winning format</span>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="counter-card">
+        <div class="counter-card-header">
+          <div class="counter-num">03</div>
+          <div>
+            <h3>Copy-Paste Influencer Strategy</h3>
+            <div style="font-size:12px; opacity:0.7; margin-top:2px;">8+ faces, identical script</div>
+          </div>
+        </div>
+        <div class="counter-body">
+          <div class="angle-col">
+            <div class="col-label">🚨 Their Angle</div>
+            <div class="col-text">Same 4-line script given to all creators. MridulMadhok runs 5 versions of identical creative. Volume play over authenticity.</div>
+          </div>
+          <div class="counter-col">
+            <div class="col-label">✅ Our Counter</div>
+            <div class="col-text">When 8 faces say the same words, audiences recognise it as paid. <strong>Authenticity is the counter</strong> — unscripted UGC beats polished scripts. Real switchers &gt; paid influencers.</div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <span class="actions-label">Actions</span>
+          <span class="action-chip"><span class="chip-num">1</span>Brief: "Show your actual morning. Don't read anything. Under 2 mins."</span>
+          <span class="action-chip"><span class="chip-num">2</span>Source 5–6 genuine Traya switchers for UGC (P0 priority)</span>
+          <span class="action-chip"><span class="chip-num">3</span>Raw phone footage, bathroom lighting = signals real</span>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="counter-card">
+        <div class="counter-card-header">
+          <div class="counter-num">04</div>
+          <div>
+            <h3>Direct Minoxidil Attack</h3>
+            <div style="font-size:12px; opacity:0.7; margin-top:2px;">"3x more effective than Minoxidil" — in their top-impression ads</div>
+          </div>
+        </div>
+        <div class="counter-body">
+          <div class="angle-col">
+            <div class="col-label">🚨 Their Angle</div>
+            <div class="col-text">"3x more effective than Minoxidil" — explicitly named in highest-impression Telugu + Tamil ads. Direct attack on Man Matters' core product.</div>
+          </div>
+          <div class="counter-col">
+            <div class="col-label">✅ Our Counter</div>
+            <div class="col-text">Don't retreat — <strong>own it.</strong> Minoxidil is the most clinically proven hair treatment globally. The problem is using it alone. MM's stack (DHT blocker + biotin + scalp health) is the amplifier. <strong>"Minoxidil works. Here's what makes it work even better."</strong></div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <span class="actions-label">Actions</span>
+          <span class="action-chip"><span class="chip-num">1</span>Messaging: "Minoxidil works. Here's what makes it work even better."</span>
+          <span class="action-chip"><span class="chip-num">2</span>Show MM's DHT blocker + biotin + scalp health as the amplifier stack</span>
+          <span class="action-chip"><span class="chip-num">3</span>Lead with dermatologist endorsements if available</span>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="counter-card">
+        <div class="counter-card-header">
+          <div class="counter-num">05</div>
+          <div>
+            <h3>Quiz / App Funnel</h3>
+            <div style="font-size:12px; opacity:0.7; margin-top:2px;">Personalisation-first acquisition model</div>
+          </div>
+        </div>
+        <div class="counter-body">
+          <div class="angle-col">
+            <div class="col-label">🚨 Their Angle</div>
+            <div class="col-text">All traffic routed through form.traya.health hair test. App-first acquisition model with personalised plan as the hook.</div>
+          </div>
+          <div class="counter-col">
+            <div class="col-label">✅ Our Counter</div>
+            <div class="col-text">Build a <strong>faster quiz</strong> — 3 questions, 60 seconds, ends with a specific named product recommendation. Personalisation <em>feeling</em> &gt; actual depth. Speed and confidence beat complexity.</div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <span class="actions-label">Actions</span>
+          <span class="action-chip"><span class="chip-num">1</span>Max 3–4 questions: concern, duration, previous treatment</span>
+          <span class="action-chip"><span class="chip-num">2</span>End with confident named recommendation + reason why</span>
+          <span class="action-chip"><span class="chip-num">3</span>Test quiz flow vs direct PDP — expect 20–35% CVR lift</span>
+        </div>
+      </div>
+
+    </div><!-- end counter-cards -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════ SECTION C -->
+  <div id="section-c">
+    <div class="section-header">
+      <div class="section-num">C</div>
+      <div>
+        <h2>Kit Complexity — Man Matters' Biggest Opportunity</h2>
+        <p>Real user feedback: Traya's kit is too complex to follow daily</p>
+      </div>
+    </div>
+
+    <div class="kit-hero">
+      <div class="insight-label">📌 Core Insight</div>
+      <p>Real Traya users say the kit is too complex to maintain daily. <strong style="color:white;">Compliance over 6 months determines hair regrowth</strong> — not which product is used. A simpler routine followed every day beats a superior one abandoned in month 2.</p>
+    </div>
+
+    <div class="kit-tagline">"Results through consistency, not complexity"</div>
+
+    <!-- VS Comparison -->
+    <div class="vs-comparison" style="margin-bottom:28px;">
+      <div class="vs-col traya">
+        <div class="vs-col-label">❌ Traya's Kit</div>
+        <div class="vs-item">6–8 products in one kit</div>
+        <div class="vs-item">Multi-step daily routine</div>
+        <div class="vs-item">Medicated complexity</div>
+        <div class="vs-item">Users drop off by month 2</div>
+        <div class="vs-item">Lengthy onboarding via app</div>
+      </div>
+      <div class="vs-middle">vs</div>
+      <div class="vs-col mm">
+        <div class="vs-col-label">✅ Man Matters Angle</div>
+        <div class="vs-item">2 products, 45 seconds</div>
+        <div class="vs-item">Fits any morning routine</div>
+        <div class="vs-item">Clinically proven simplicity</div>
+        <div class="vs-item">6-month compliance = results</div>
+        <div class="vs-item">60-second quiz → done</div>
+      </div>
+    </div>
+
+    <!-- Format Cards -->
+    <div style="font-size:14px; font-weight:800; color:var(--navy); margin-bottom:14px;">4 Creative Formats to Build</div>
+    <div class="format-cards">
+      <div class="format-card" data-num="1">
+        <h4>🎬 Switcher Testimonial</h4>
+        <p>Man holds up Traya's 6–8 product kit. "Bought this 4 months ago. Followed it for 3 weeks. Now it collects dust." Cuts to 2 MM products. "30 seconds. Done. Every single day for 90 days."</p>
+      </div>
+      <div class="format-card" data-num="2">
+        <h4>🪴 The Shelf Audit</h4>
+        <p>Bathroom shelf: Traya = 8 products. Man Matters = 2 products. Voiceover: "One gets done. One gets skipped. You already know which."</p>
+      </div>
+      <div class="format-card" data-num="3">
+        <h4>⏱ 2-Minute Day-in-Life</h4>
+        <p>Busy man, hectic morning — alarm, getting ready, chai, rushing out. Mid-routine: 45 seconds, 2 products, done. Tagline: "Hair growth that fits your life."</p>
+      </div>
+      <div class="format-card" data-num="4">
+        <h4>📊 Compliance Math</h4>
+        <p>"Hair regrowth needs 120–180 days consistently. Miss 20%+ days and the cycle resets. The question isn't which treatment is best in a lab — it's which one you'll do for 6 months straight."</p>
+      </div>
+    </div>
+
+    <!-- Priority Table -->
+    <div style="font-size:14px; font-weight:800; color:var(--navy); margin-bottom:14px;">Execution Priority</div>
+    <table class="priority-table">
+      <thead>
+        <tr><th>Priority</th><th>Action</th><th>Timeline</th></tr>
+      </thead>
+      <tbody>
+        <tr class="p0-row">
+          <td><span class="priority-badge p0">P0</span></td>
+          <td><strong>Source 5–6 genuine Traya switchers for UGC testimonial</strong></td>
+          <td>This Week</td>
+        </tr>
+        <tr>
+          <td><span class="priority-badge p1">P1</span></td>
+          <td>Build Compliance Math education creative (video)</td>
+          <td>Week 1–2</td>
+        </tr>
+        <tr>
+          <td><span class="priority-badge p2">P2</span></td>
+          <td>Launch Telugu 2-minute routine creative</td>
+          <td>Week 2–3</td>
+        </tr>
+        <tr>
+          <td><span class="priority-badge p3">P3</span></td>
+          <td>Build 60-second hair quiz + product recommendation page</td>
+          <td>Week 3–4</td>
+        </tr>
+        <tr>
+          <td><span class="priority-badge p4">P4</span></td>
+          <td>Scale winning influencer format (authentic brief, not script)</td>
+          <td>Month 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div><!-- end section-c -->
+
+</div><!-- end container -->
+
+<div class="footer">
+  <strong>Man Matters</strong> — Traya Competitive Intelligence Report &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Confidential
+</div>
+
+<script>
+  // Smooth scroll for nav tabs
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Highlight active section on scroll
+  const sections = document.querySelectorAll('#section-a, #section-b, #section-c');
+  const tabs = document.querySelectorAll('.nav-tab');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    tabs.forEach(t => {
+      t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
